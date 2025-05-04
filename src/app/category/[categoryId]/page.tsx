@@ -79,7 +79,7 @@ export default function CategoryPage() {
 
       {/* Filtres et tri */}
       <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-8">
-        <div className="w-full md:w-64">
+        <div className="w-full md:w-64 flex flex-col gap-2">
           <Label htmlFor="search">Recherche</Label>
           <Input
             id="search"
@@ -91,7 +91,7 @@ export default function CategoryPage() {
           />
         </div>
 
-        <div className="w-full md:w-64">
+        <div className="w-full md:w-64 flex flex-col gap-2">
           <Label htmlFor="sort">Trier par</Label>
           <Select value={sortOption} onValueChange={setSortOption}>
             <SelectTrigger id="sort" className="w-full">

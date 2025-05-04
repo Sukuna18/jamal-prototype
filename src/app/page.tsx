@@ -3,7 +3,7 @@ import { categories, products } from "@/data/db";
 import ProductCard from "@/components/ProductCard";
 import CategoryCard from "@/components/CategoryCard";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Mail, Star } from "lucide-react";
 import Link from "next/link";
 import {
   Carousel,
@@ -13,8 +13,68 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import * as React from "react";
 import Image from "next/image";
+
+const testimonials = [
+  {
+    id: 1,
+    name: "Sophie Martin",
+    rating: 5,
+    comment:
+      "J'adore cette boutique ! Les produits sont de très haute qualité et le service client est exceptionnel. Je recommande vivement !",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 2,
+    name: "Thomas Dubois",
+    rating: 4,
+    comment:
+      "Excellente expérience d'achat. La livraison a été rapide et les articles correspondent parfaitement aux descriptions. Je reviendrai !",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 3,
+    name: "Émilie Leclerc",
+    rating: 5,
+    comment:
+      "Des vêtements magnifiques et de très bonne qualité. Le rapport qualité-prix est imbattable. Ma boutique préférée !",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 4,
+    name: "Lucas Moreau",
+    rating: 5,
+    comment:
+      "Service impeccable et produits exceptionnels. Je suis client depuis plus d'un an et je n'ai jamais été déçu.",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 5,
+    name: "Camille Petit",
+    rating: 4,
+    comment:
+      "Boutique très tendance avec un excellent choix. Les prix sont raisonnables pour la qualité proposée.",
+    image:
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80",
+  },
+];
+
+const StarRating = ({ rating }: { rating: number }) => {
+  return (
+    <div className="flex">
+      {[...Array(5)].map((_, i) => (
+        <Star
+          key={i}
+          className={`w-5 h-5 ${i < rating ? "fill-pink-400 text-pink-400" : "fill-gray-200 text-gray-200"}`}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default function HomePage() {
   // Sélectionnez quelques produits pour l'affichage en vedette
@@ -247,6 +307,69 @@ export default function HomePage() {
                   className="pl-4 sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                 >
                   <ProductCard product={product} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-[-20px] md:left-[-50px] top-1/2 -translate-y-1/2 z-10 text-gray-700 bg-white/80 hover:bg-white border shadow-md p-2 rounded-full" />
+            <CarouselNext className="absolute right-[-20px] md:right-[-50px] top-1/2 -translate-y-1/2 z-10 text-gray-700 bg-white/80 hover:bg-white border shadow-md p-2 rounded-full" />
+          </Carousel>
+        </div>
+      </section>
+
+      {/* Témoignages */}
+      <section className="py-20 bg-gradient-to-b from-white to-rose-50">
+        <div className="container mx-auto px-6 md:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              Ce que nos clients disent
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Découvrez les avis de nos clients satisfaits qui ont fait
+              confiance à notre boutique.
+            </p>
+          </div>
+
+          <Carousel
+            opts={{
+              align: "center",
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 6000,
+                stopOnInteraction: true,
+              }),
+            ]}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {testimonials.map((testimonial) => (
+                <CarouselItem
+                  key={testimonial.id}
+                  className="pl-4 md:basis-1/2 lg:basis-1/3"
+                >
+                  <div className="bg-white p-6 rounded-xl shadow-md h-full flex flex-col border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                    <div className="flex items-center mb-4">
+                      <div className="w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-pink-200">
+                        <Image
+                          src={testimonial.image || "/placeholder.svg"}
+                          alt={`Photo de ${testimonial.name}`}
+                          width={56}
+                          height={56}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-800">
+                          {testimonial.name}
+                        </h3>
+                        <StarRating rating={testimonial.rating} />
+                      </div>
+                    </div>
+                    <p className="text-gray-600 italic flex-grow">
+                      "{testimonial.comment}"
+                    </p>
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
