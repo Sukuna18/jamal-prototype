@@ -17,6 +17,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { Product } from "@/types";
 
 export default function AdminProductsPage() {
   const { user } = useAuth();
@@ -26,7 +27,7 @@ export default function AdminProductsPage() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [currentProduct, setCurrentProduct] = useState<any>(null);
+  const [currentProduct, setCurrentProduct] = useState<Product | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
 
   // Formulaire pour ajouter/éditer un produit
@@ -104,13 +105,13 @@ export default function AdminProductsPage() {
     setIsAddDialogOpen(true);
   };
 
-  const openEditDialog = (product: any) => {
+  const openEditDialog = (product: Product) => {
     setCurrentProduct(product);
     setFormData({ ...product });
     setIsEditDialogOpen(true);
   };
 
-  const openDeleteDialog = (product: any) => {
+  const openDeleteDialog = (product: Product) => {
     setCurrentProduct(product);
     setIsDeleteDialogOpen(true);
   };
@@ -126,7 +127,7 @@ export default function AdminProductsPage() {
 
   const handleEditProduct = () => {
     // Mettre à jour le produit dans la liste
-    const index = products.findIndex((p) => p.id === currentProduct.id);
+    const index = products.findIndex((p) => p.id === currentProduct?.id);
     if (index !== -1) {
       products[index] = { ...formData };
       setProductsList([...products]);
@@ -137,7 +138,7 @@ export default function AdminProductsPage() {
 
   const handleDeleteProduct = () => {
     // Supprimer le produit de la liste
-    const index = products.findIndex((p) => p.id === currentProduct.id);
+    const index = products.findIndex((p) => p.id === currentProduct?.id);
     if (index !== -1) {
       products.splice(index, 1);
       setProductsList([...products]);

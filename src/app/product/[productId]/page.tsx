@@ -11,9 +11,7 @@ import { notFound, useParams } from "next/navigation";
 
 export default function ProductDetailPage() {
   const { productId } = useParams();
-  const [product, setProduct] = useState(
-    products.find((p) => p.id === productId)
-  );
+  const [product] = useState(products.find((p) => p.id === productId));
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
 

@@ -30,7 +30,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         const parsedCart = JSON.parse(savedCart);
         // Récupérer les détails complets des produits
         const cartWithProducts = parsedCart
-          .map((item: any) => ({
+          .map((item: CartItem) => ({
             ...item,
             product: products.find((p) => p.id === item.productId)!,
           }))

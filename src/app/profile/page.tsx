@@ -95,8 +95,8 @@ const mockOrders = [
 export default function ProfilePage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
-  const [userOrders, setUserOrders] = useState<any[]>([]);
+  const [user, setUser] = useState<typeof mockUser | null>(null);
+  const [userOrders, setUserOrders] = useState<typeof mockOrders>([]);
 
   useEffect(() => {
     // Simulate loading
@@ -179,17 +179,17 @@ export default function ProfilePage() {
               <div className="px-6 -mt-16 pb-6">
                 <Avatar className="w-24 h-24 border-4 border-background">
                   <AvatarImage
-                    src={user.avatarUrl || "/placeholder.svg"}
-                    alt={user.name}
+                    src={user?.avatarUrl || "/placeholder.svg"}
+                    alt={user?.name}
                   />
                   <AvatarFallback className="text-xl bg-primary text-primary-foreground">
-                    {getInitials(user.name)}
+                    {getInitials(user?.name || "")}
                   </AvatarFallback>
                 </Avatar>
                 <div className="mt-4">
-                  <h2 className="text-2xl font-bold">{user.name}</h2>
+                  <h2 className="text-2xl font-bold">{user?.name}</h2>
                   <p className="text-muted-foreground">
-                    Client depuis {user.memberSince}
+                    Client depuis {user?.memberSince}
                   </p>
                 </div>
 
@@ -198,20 +198,20 @@ export default function ProfilePage() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Mail className="text-muted-foreground" size={18} />
-                    <span>{user.email}</span>
+                    <span>{user?.email}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Phone className="text-muted-foreground" size={18} />
-                    <span>{user.phone}</span>
+                    <span>{user?.phone}</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="text-muted-foreground mt-1" size={18} />
                     <div>
-                      <p>{user.address.street}</p>
+                      <p>{user?.address.street}</p>
                       <p>
-                        {user.address.zipCode} {user.address.city}
+                        {user?.address.zipCode} {user?.address.city}
                       </p>
-                      <p>{user.address.country}</p>
+                      <p>{user?.address.country}</p>
                     </div>
                   </div>
                 </div>
@@ -221,15 +221,15 @@ export default function ProfilePage() {
                 <div>
                   <div className="flex justify-between mb-2">
                     <span className="font-medium">Points de fidélité</span>
-                    <span className="font-bold">{user.loyaltyPoints}</span>
+                    <span className="font-bold">{user?.loyaltyPoints}</span>
                   </div>
                   <Progress
-                    value={(user.loyaltyPoints / 1000) * 100}
+                    value={((user?.loyaltyPoints ?? 0) / 1000) * 100}
                     className="h-2"
                   />
                   <p className="text-xs text-muted-foreground mt-2">
-                    Plus que {1000 - user.loyaltyPoints} points pour atteindre
-                    le statut Premium
+                    Plus que {1000 - (user?.loyaltyPoints ?? 0)} points pour
+                    atteindre le statut Premium
                   </p>
                 </div>
               </div>
@@ -243,7 +243,7 @@ export default function ProfilePage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-muted/50 rounded-lg p-4 text-center">
                     <ShoppingBag className="mx-auto mb-2 text-primary" />
-                    <p className="text-2xl font-bold">{user.totalOrders}</p>
+                    <p className="text-2xl font-bold">{user?.totalOrders}</p>
                     <p className="text-xs text-muted-foreground">Commandes</p>
                   </div>
                   <div className="bg-muted/50 rounded-lg p-4 text-center">

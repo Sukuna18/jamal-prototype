@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email: string): Promise<boolean> => {
     // Simuler un délai d'authentification
     await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -49,11 +49,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return false;
   };
 
-  const register = async (
-    name: string,
-    email: string,
-    password: string
-  ): Promise<boolean> => {
+  const register = async (name: string, email: string): Promise<boolean> => {
     // Simuler un délai d'authentification
     await new Promise((resolve) => setTimeout(resolve, 500));
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { products, categories } from "@/data/db";
+import { products } from "@/data/db";
 import ProductCard from "@/components/ProductCard";
 import { Product } from "@/types";
 import { Input } from "@/components/ui/input";
